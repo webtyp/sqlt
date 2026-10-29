@@ -8,8 +8,8 @@ require (
 	modernc.org/sqlite v1.54.0
 	webtyp.com/ddl v0.0.15
 	webtyp.com/fmt v1.0.0
-	webtyp.com/model v0.2.11
-	webtyp.com/sqlt v0.0.12
+	webtyp.com/model v0.2.12
+	webtyp.com/sqlt v0.0.13
 	webtyp.com/storage v0.0.7
 )
 
