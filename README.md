@@ -21,33 +21,49 @@ With `sqlt`, functions like `ddl.Sync`, `ddl.CopyColumn`, `ddl.DropColumn`, and 
 ## Step-by-Step Guide
 
 ```go
-package example
+package main
 
 import (
+	"log"
+
 	"webtyp.com/ddl"
 	"webtyp.com/model"
 	"webtyp.com/sqlt"
 	"webtyp.com/storage"
 )
 
-func Example() {
-	// Initialize compiler
-	c := sqlt.NewCompiler()
+func main() {
+	// DML: a storage.Query becomes SQLite SQL plus positional args.
+	sql, args, err := sqlt.Translate(storage.Query{
+		Action:     storage.ActionReadAll,
+		Table:      "holiday",
+		Columns:    []string{"name"},
+		Conditions: []storage.Condition{storage.IsNotNull("name")},
+	}, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println(sql, args) // SELECT name FROM holiday WHERE name IS NOT NULL []
 
-	// Export Data Definition Language
-	// sql, err := c.ExportDDL(models)
-
-	// Translate DML
-	// sql, args, err := sqlt.Translate(storage.Query{...}, m)
-
-	// Translate DDL (example: copying a column)
-	sql, args, err := sqlt.TranslateDDL(ddl.Stmt{
+	// DDL: copy a removed column into the one that replaced it, only where it is empty.
+	sql, _, err = sqlt.TranslateDDL(ddl.Stmt{
 		Op:         ddl.OpCopyColumn,
 		Table:      "holiday",
 		OldName:    "label",
 		ColumnName: "name",
 	}, nil)
-	// sql is: "UPDATE holiday SET name = label WHERE name IS NULL AND label IS NOT NULL"
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println(sql) // UPDATE holiday SET name = label WHERE name IS NULL AND label IS NOT NULL
+
+	// Full schema for build-time tooling, tables ordered by their foreign keys.
+	var models []model.Model // your ormc-generated models
+	schema, err := sqlt.NewCompiler().ExportDDL(models)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println(schema)
 }
 ```
 For API implementation details, refer to [translate.go](translate.go).
