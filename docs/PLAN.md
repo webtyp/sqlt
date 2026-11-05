@@ -2,6 +2,8 @@
 PLAN: "feat(sqlt): render ddl.OpCopyColumn; update to ddl v0.0.45 and storage v0.1.18 (NULL scans as zero in the test conn)"
 EXECUTOR: jules
 REVIEWER: none
+STATUS: running
+SESSION: 7716309649223077380
 ---
 
 > Read AGENTS.md at the repo root before any change.
