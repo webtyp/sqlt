@@ -206,6 +206,29 @@ func TestTranslateDropColumn(t *testing.T) {
 	}
 }
 
+func TestTranslateCopyColumn(t *testing.T) {
+	sql, _, err := sqlt.TranslateDDL(ddl.Stmt{
+		Op:         ddl.OpCopyColumn,
+		Table:      "holiday",
+		OldName:    "label",
+		ColumnName: "name",
+	}, testModel{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := "UPDATE holiday SET name = label WHERE name IS NULL AND label IS NOT NULL"
+	if sql != want {
+		t.Errorf("got %q, want %q", sql, want)
+	}
+}
+
+func TestTranslateCopyColumn_MissingNameFails(t *testing.T) {
+	_, _, err := sqlt.TranslateDDL(ddl.Stmt{Op: ddl.OpCopyColumn, Table: "holiday", OldName: "label"}, testModel{})
+	if err == nil {
+		t.Fatal("expected an error when the destination column is empty")
+	}
+}
+
 func TestTranslateNullConditions(t *testing.T) {
 	sql, args, err := sqlt.Translate(storage.Query{
 		Action:     storage.ActionReadAll,

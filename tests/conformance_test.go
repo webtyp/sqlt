@@ -29,8 +29,17 @@ func (c *sqlConn) QueryRow(q string, a ...any) storage.Scanner {
 }
 
 func (c *sqlConn) Query(q string, a ...any) (storage.Rows, error) {
-	return c.DB.Query(q, a...)
+	rows, err := c.DB.Query(q, a...)
+	if err != nil {
+		return nil, err
+	}
+	return nullRows{rows}, nil
 }
+
+// nullRows applies the storage contract's NULL rule to the read-all path.
+type nullRows struct{ *sql.Rows }
+
+func (r nullRows) Scan(dest ...any) error { return r.Rows.Scan(storage.NullSafe(dest)...) }
 
 func (c *sqlConn) Close() error {
 	return c.DB.Close()
@@ -45,7 +54,7 @@ type noRows struct {
 }
 
 func (r *noRows) Scan(d ...any) error {
-	err := r.s.Scan(d...)
+	err := r.s.Scan(storage.NullSafe(d)...)
 	if err == sql.ErrNoRows {
 		return storage.ErrNoRows
 	}

@@ -1,0 +1,26 @@
+{
+  "languages": ["es", "zh", "hi", "ar", "pt", "fr", "de", "ru"],
+  "keys": {
+    "IN operator slice cannot be empty": ["la porción del operador IN no puede estar vacía", "IN运算符切片不能为空", "IN ऑपरेटर स्लाइस खाली नहीं हो सकता", "لا يمكن أن يكون جزء المشغل IN فارغًا", "a fatia do operador IN não pode estar vazia", "la tranche de l'opérateur IN ne peut pas être vide", "IN-Operator-Slice darf nicht leer sein", "срез оператора IN не может быть пустым"],
+    "add column": ["añadir columna", "添加列", "कॉलम जोड़ें", "إضافة عمود", "adicionar coluna", "ajouter une colonne", "Spalte hinzufügen", "добавить столбец"],
+    "and column": ["y columna", "和列", "और कॉलम", "والعمود", "e coluna", "et colonne", "und Spalte", "и столбец"],
+    "are": ["son", "是", "हैं", "هم", "são", "sont", "sind", "суть"],
+    "columns": ["columnas", "列", "कॉलम", "أعمدة", "colunas", "colonnes", "Spalten", "столбцы"],
+    "copy column": ["copiar columna", "复制列", "कॉलम कॉपी करें", "نسخ عمود", "copiar coluna", "copier la colonne", "Spalte kopieren", "скопировать столбец"],
+    "create table": ["crear tabla", "创建表", "टेबल बनाएं", "إنشاء جدول", "criar tabela", "créer une table", "Tabelle erstellen", "создать таблицу"],
+    "delete": ["eliminar", "删除", "हटाएं", "حذف", "excluir", "supprimer", "löschen", "удалить"],
+    "drop column": ["eliminar columna", "删除列", "कॉलम हटाएं", "إسقاط عمود", "remover coluna", "supprimer la colonne", "Spalte löschen", "удалить столбец"],
+    "drop table": ["eliminar tabla", "删除表", "टेबल हटाएं", "إسقاط جدول", "remover tabela", "supprimer la table", "Tabelle löschen", "удалить таблицу"],
+    "insert": ["insertar", "插入", "सम्मिलित करें", "إدراج", "inserir", "insérer", "einfügen", "вставить"],
+    "is": ["es", "是", "है", "هو", "é", "est", "ist", "есть"],
+    "model": ["modelo", "模型", "मॉडल", "نموذج", "modelo", "modèle", "Modell", "модель"],
+    "no non-PK columns to update": ["no hay columnas que no sean clave primaria para actualizar", "没有非PK列需要更新", "अपडेट करने के लिए कोई गैर-पीके कॉलम नहीं है", "لا توجد أعمدة غير رئيسية لتحديثها", "nenhuma coluna não-PK para atualizar", "aucune colonne non-PK à mettre à jour", "keine Nicht-PK-Spalten zum Aktualisieren", "нет не-PK столбцов для обновления"],
+    "rename": ["renombrar", "重命名", "नाम बदलें", "إعادة تسمية", "renomear", "renommer", "umbenennen", "переименовать"],
+    "required for": ["requerido para", "必须用于", "के लिए आवश्यक", "مطلوب لـ", "necessário para", "requis pour", "erforderlich für", "требуется для"],
+    "select": ["seleccionar", "选择", "चुनें", "تحديد", "selecionar", "sélectionner", "auswählen", "выбрать"],
+    "table": ["tabla", "表", "टेबल", "الجدول", "tabela", "table", "Tabelle", "таблица"],
+    "table name": ["nombre de tabla", "表名", "टेबल का नाम", "اسم الجدول", "nome da tabela", "nom de la table", "Tabellenname", "имя таблицы"],
+    "table, old name": ["tabla, nombre antiguo", "表、旧名称", "टेबल, पुराना नाम", "الجدول والاسم القديم", "tabela, nome antigo", "table, ancien nom", "Tabelle, alter Name", "таблица, старое имя"],
+    "update": ["actualizar", "更新", "अपडेट करें", "تحديث", "atualizar", "mettre à jour", "aktualisieren", "обновить"]
+  }
+}

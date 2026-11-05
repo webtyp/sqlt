@@ -36,6 +36,8 @@ func translateDDL(s ddl.Stmt, m model.Model) (string, []any, error) {
 		return buildRenameColumn(s)
 	case ddl.OpDropColumn:
 		return buildDropColumn(s)
+	case ddl.OpCopyColumn:
+		return buildCopyColumn(s)
 	default:
 		return "", nil, fmt.Errf("unknown DDL op: %v", s.Op)
 	}
@@ -43,10 +45,10 @@ func translateDDL(s ddl.Stmt, m model.Model) (string, []any, error) {
 
 func buildCreateTable(s ddl.Stmt, m model.Model) (string, []any, error) {
 	if m == nil {
-		return "", nil, fmt.Err("model is required for create table")
+		return "", nil, fmt.Err("model", "is", "required for", "create table")
 	}
 	if s.Table == "" {
-		return "", nil, fmt.Err("table name is required for create table")
+		return "", nil, fmt.Err("table name", "is", "required for", "create table")
 	}
 
 	var sb []string
@@ -115,14 +117,14 @@ func buildCreateTable(s ddl.Stmt, m model.Model) (string, []any, error) {
 
 func buildDropTable(s ddl.Stmt) (string, []any, error) {
 	if s.Table == "" {
-		return "", nil, fmt.Err("table name is required for drop table")
+		return "", nil, fmt.Err("table name", "is", "required for", "drop table")
 	}
 	return fmt.Sprintf("DROP TABLE IF EXISTS %s", s.Table), nil, nil
 }
 
 func buildAddColumn(s ddl.Stmt) (string, []any, error) {
 	if s.Column == nil || s.Table == "" {
-		return "", nil, fmt.Err("table and column required for add column")
+		return "", nil, fmt.Err("table", "and column", "are", "required for", "add column")
 	}
 	return fmt.Sprintf("ALTER TABLE %s ADD COLUMN %s %s",
 		s.Table, s.Column.Name, sqliteType(s.Column.Type.Storage())), nil, nil
@@ -130,7 +132,7 @@ func buildAddColumn(s ddl.Stmt) (string, []any, error) {
 
 func buildRenameColumn(s ddl.Stmt) (string, []any, error) {
 	if s.Column == nil || s.OldName == "" || s.Table == "" {
-		return "", nil, fmt.Err("table, old name and column required for rename")
+		return "", nil, fmt.Err("table, old name", "and column", "are", "required for", "rename")
 	}
 	return fmt.Sprintf("ALTER TABLE %s RENAME COLUMN %s TO %s",
 		s.Table, s.OldName, s.Column.Name), nil, nil
@@ -138,9 +140,17 @@ func buildRenameColumn(s ddl.Stmt) (string, []any, error) {
 
 func buildDropColumn(s ddl.Stmt) (string, []any, error) {
 	if s.Table == "" || s.ColumnName == "" {
-		return "", nil, fmt.Err("table and column required for drop column")
+		return "", nil, fmt.Err("table", "and column", "are", "required for", "drop column")
 	}
 	return fmt.Sprintf("ALTER TABLE %s DROP COLUMN %s", s.Table, s.ColumnName), nil, nil
+}
+
+func buildCopyColumn(s ddl.Stmt) (string, []any, error) {
+	if s.Table == "" || s.OldName == "" || s.ColumnName == "" {
+		return "", nil, fmt.Err("table, old name", "and column", "are", "required for", "copy column")
+	}
+	return fmt.Sprintf("UPDATE %s SET %s = %s WHERE %s IS NULL AND %s IS NOT NULL",
+		s.Table, s.ColumnName, s.OldName, s.ColumnName, s.OldName), nil, nil
 }
 
 func sqliteColumnType(f model.Field) string {
@@ -180,10 +190,10 @@ func onDeleteSQL(action string) string {
 
 func buildInsert(q storage.Query) (string, []any, error) {
 	if q.Table == "" {
-		return "", nil, fmt.Err("table name is required for insert")
+		return "", nil, fmt.Err("table name", "is", "required for", "insert")
 	}
 	if len(q.Columns) == 0 {
-		return "", nil, fmt.Err("columns are required for insert")
+		return "", nil, fmt.Err("columns", "are", "required for", "insert")
 	}
 
 	cols := fmt.Convert(q.Columns).Join(", ").String()
@@ -199,9 +209,12 @@ func buildInsert(q storage.Query) (string, []any, error) {
 
 func buildSelect(q storage.Query) (string, []any, error) {
 	if q.Table == "" {
-		return "", nil, fmt.Err("table name is required for select")
+		return "", nil, fmt.Err("table name", "is", "required for", "select")
 	}
 	cols := "*"
+	if len(q.Columns) > 0 {
+		cols = fmt.Convert(q.Columns).Join(", ").String()
+	}
 
 	whereSQL, args, err := buildConditions(q.Conditions)
 	if err != nil {
@@ -238,10 +251,10 @@ func buildSelect(q storage.Query) (string, []any, error) {
 
 func buildUpdate(q storage.Query, m model.Model) (string, []any, error) {
 	if q.Table == "" {
-		return "", nil, fmt.Err("table name is required for update")
+		return "", nil, fmt.Err("table name", "is", "required for", "update")
 	}
 	if len(q.Columns) == 0 {
-		return "", nil, fmt.Err("columns are required for update")
+		return "", nil, fmt.Err("columns", "are", "required for", "update")
 	}
 
 	var pkCols map[string]bool
@@ -281,7 +294,7 @@ func buildUpdate(q storage.Query, m model.Model) (string, []any, error) {
 
 func buildDelete(q storage.Query) (string, []any, error) {
 	if q.Table == "" {
-		return "", nil, fmt.Err("table name is required for delete")
+		return "", nil, fmt.Err("table name", "is", "required for", "delete")
 	}
 
 	whereSQL, args, err := buildConditions(q.Conditions)
