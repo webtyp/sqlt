@@ -1,0 +1,8 @@
+{
+  "languages": ["es", "zh", "hi", "ar", "pt", "fr", "de", "ru"],
+  "keys": {
+    "IN operator slice cannot be empty": ["la lista del operador IN no puede estar vacía", "IN 运算符的列表不能为空", "IN ऑपरेटर की सूची खाली नहीं हो सकती", "لا يمكن أن تكون قائمة المعامل IN فارغة", "a lista do operador IN não pode estar vazia", "la liste de l'opérateur IN ne peut pas être vide", "die Liste des IN-Operators darf nicht leer sein", "список оператора IN не может быть пустым"],
+    "no non-PK columns to update": ["no hay columnas fuera de la clave primaria para actualizar", "没有可更新的非主键列", "अपडेट करने के लिए प्राथमिक कुंजी के अलावा कोई कॉलम नहीं है", "لا توجد أعمدة خارج المفتاح الأساسي لتحديثها", "não há colunas fora da chave primária para atualizar", "aucune colonne hors clé primaire à mettre à jour", "keine Spalten außerhalb des Primärschlüssels zum Aktualisieren", "нет столбцов вне первичного ключа для обновления"],
+    "sqlt: a required table, column or model is missing in": ["sqlt: falta una tabla, columna o modelo obligatorio en", "sqlt: 缺少必需的表、列或模型：", "sqlt: आवश्यक तालिका, कॉलम या मॉडल गायब है:", "sqlt: جدول أو عمود أو نموذج مطلوب مفقود في", "sqlt: falta uma tabela, coluna ou modelo obrigatório em", "sqlt : une table, une colonne ou un modèle obligatoire manque dans", "sqlt: eine erforderliche Tabelle, Spalte oder ein Modell fehlt in", "sqlt: отсутствует обязательная таблица, столбец или модель в"]
+  }
+}
