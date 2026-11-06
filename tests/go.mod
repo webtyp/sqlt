@@ -6,7 +6,7 @@ replace webtyp.com/sqlt => ../
 
 require (
 	modernc.org/sqlite v1.54.0
-	webtyp.com/ddl v0.0.45
+	webtyp.com/ddl v0.0.46
 	webtyp.com/fmt v1.0.0
 	webtyp.com/model v0.2.12
 	webtyp.com/sqlt v0.0.14
