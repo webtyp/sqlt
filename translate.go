@@ -334,10 +334,10 @@ func buildConditions(conditions []storage.Condition) (string, []any, error) {
 	for i, c := range conditions {
 		var clause string
 		op := c.Operator()
-		switch {
-		case op == "IS NULL" || op == "IS NOT NULL":
+		switch op {
+		case "IS NULL", "IS NOT NULL":
 			clause = fmt.Sprintf("%s %s", c.Field(), op)
-		case op == "IN":
+		case "IN":
 			slice, ok := c.Value().([]any)
 			if !ok {
 				return "", nil, fmt.Errf("IN operator requires []any value, got %T", c.Value())

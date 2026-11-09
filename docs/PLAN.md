@@ -2,8 +2,10 @@
 PLAN: "refactor!: Exec reports rows affected and a duplicate key (storage.Result, storage.Duplicate) — sqlt"
 EXECUTOR: jules
 REVIEWER: none
-STATUS: running
+STATUS: review
 SESSION: 1908690727412719275
+PR: https://github.com/webtyp/sqlt/pull/7
+REVIEWED_COMMIT: bc84f2b5d3731da4e8c0a383dd0fb5c0d01ee35d
 ---
 
 > Read AGENTS.md at the repo root before any change.
@@ -65,3 +67,7 @@ Never ignore the count where the caller can use it, and never invent a count: a 
 2. `sqlt`'s conformance test passes with the two new subtests `exec_reports_rows_affected` and `duplicate_primary_key_is_reported`.
 3. `grep -rnE "\) Exec\(([a-z]+) string, ([a-z]+) \.\.\.any\) error" --include=*.go .` → empty (no implementer with the old shape).
 4. `git diff --stat main` lists only the files named above, `go.mod`, `go.sum` and the docs that showed `Exec`.
+
+## Executor notes
+The execution went well without major issues.
+I deleted the `patch.diff` that was mistakenly left. Formatting on `translate.go` was fixed via `gofmt`.

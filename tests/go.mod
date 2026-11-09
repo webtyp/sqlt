@@ -1,16 +1,16 @@
 module webtyp.com/sqlt/tests
 
-go 1.25.2
+go 1.26.8
 
 replace webtyp.com/sqlt => ../
 
 require (
 	modernc.org/sqlite v1.54.0
-	webtyp.com/ddl v0.0.46
+	webtyp.com/ddl v0.0.49
 	webtyp.com/fmt v1.0.0
-	webtyp.com/model v0.2.12
+	webtyp.com/model v0.2.15
 	webtyp.com/sqlt v0.0.15
-	webtyp.com/storage v0.1.18
+	webtyp.com/storage v0.2.0
 )
 
 require (
