@@ -11,7 +11,8 @@ import (
 	"webtyp.com/storage"
 	dbconf "webtyp.com/storage/conformance"
 
-	_ "modernc.org/sqlite"
+	"modernc.org/sqlite"
+	sqlite3 "modernc.org/sqlite/lib"
 )
 
 type sqlConn struct {
@@ -19,9 +20,18 @@ type sqlConn struct {
 	compiler storage.Compiler
 }
 
-func (c *sqlConn) Exec(q string, a ...any) error {
-	_, err := c.DB.Exec(q, a...)
-	return err
+func (c *sqlConn) Exec(q string, a ...any) (storage.Result, error) {
+	res, err := c.DB.Exec(q, a...)
+	if err != nil {
+		if sqliteErr, ok := err.(*sqlite.Error); ok {
+			if sqliteErr.Code() == sqlite3.SQLITE_CONSTRAINT_UNIQUE || sqliteErr.Code() == sqlite3.SQLITE_CONSTRAINT_PRIMARYKEY {
+				return storage.Affected(0), storage.Duplicate(err)
+			}
+		}
+		return storage.Affected(0), err
+	}
+	n, _ := res.RowsAffected()
+	return storage.Affected(n), nil
 }
 
 func (c *sqlConn) QueryRow(q string, a ...any) storage.Scanner {
