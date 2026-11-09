@@ -2,8 +2,10 @@
 PLAN: "refactor!: Exec reports rows affected and a duplicate key (storage.Result, storage.Duplicate) — sqlt"
 EXECUTOR: jules
 REVIEWER: none
-STATUS: running
+STATUS: review
 SESSION: 1908690727412719275
+PR: https://github.com/webtyp/sqlt/pull/7
+REVIEWED_COMMIT: bc84f2b5d3731da4e8c0a383dd0fb5c0d01ee35d
 ---
 
 > Read AGENTS.md at the repo root before any change.
