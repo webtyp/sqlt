@@ -73,5 +73,5 @@ For API implementation details, refer to [translate.go](translate.go).
 | File | Purpose |
 |------|---------|
 | `translate.go` | DML and DDL SQLite generation logic |
-| `tests/conformance_test.go` | SQL driver compliance contracts proved |
+| `tests/translate_test.go` | SQL text generated for each query and DDL step |
 | `AGENTS.md` | Development and contribution rules |
