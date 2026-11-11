@@ -2,6 +2,8 @@
 PLAN: "feat: sqlt honours storage.ILike (case-insensitive match on SQLite)"
 EXECUTOR: jules
 REVIEWER: none
+STATUS: running
+SESSION: 13490748600497650720
 ---
 
 > Read AGENTS.md at the repo root before any change.
