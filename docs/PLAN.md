@@ -2,8 +2,10 @@
 PLAN: "feat: sqlt honours storage.ILike (case-insensitive match on SQLite)"
 EXECUTOR: jules
 REVIEWER: none
-STATUS: running
+STATUS: review
 SESSION: 13490748600497650720
+PR: https://github.com/webtyp/sqlt/pull/8
+REVIEWED_COMMIT: acfab2b1fd76bfee9656de25de11adbe7890822b
 ---
 
 > Read AGENTS.md at the repo root before any change.
