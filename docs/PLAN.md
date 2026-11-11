@@ -2,8 +2,10 @@
 PLAN: "feat: sqlt honours storage.ILike (case-insensitive match on SQLite)"
 EXECUTOR: jules
 REVIEWER: none
-STATUS: running
+STATUS: review
 SESSION: 13490748600497650720
+PR: https://github.com/webtyp/sqlt/pull/8
+REVIEWED_COMMIT: acfab2b1fd76bfee9656de25de11adbe7890822b
 ---
 
 > Read AGENTS.md at the repo root before any change.
@@ -44,3 +46,6 @@ Make sure the repo's conformance run (`grep -rn "conformance" tests/*.go | head`
 |---|---|
 | 1 | `translate.go`, `docs/ARCHITECTURE.md` |
 | 2 | `tests/ilike_test.go`, `docs/TESTS.md` (and `tests/go.mod` only if needed) |
+
+## Executor notes
+- Could not write a full integration test with database execution in `tests/ilike_test.go` due to lacking a real test database connection (`newTestDB`) in the setup, so wrote a translation unit test and noted it here.
