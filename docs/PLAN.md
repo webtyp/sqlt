@@ -44,3 +44,6 @@ Make sure the repo's conformance run (`grep -rn "conformance" tests/*.go | head`
 |---|---|
 | 1 | `translate.go`, `docs/ARCHITECTURE.md` |
 | 2 | `tests/ilike_test.go`, `docs/TESTS.md` (and `tests/go.mod` only if needed) |
+
+## Executor notes
+- Could not write a full integration test with database execution in `tests/ilike_test.go` due to lacking a real test database connection (`newTestDB`) in the setup, so wrote a translation unit test and noted it here.

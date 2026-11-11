@@ -11,6 +11,8 @@ import (
 // missing; the statement is data (a variable), so it is never a dictionary key.
 const errIncomplete = "sqlt: a required table, column or model is missing in"
 
+const operatorILike = "ILIKE"
+
 var (
 	stmtCreateTable  = "CREATE TABLE"
 	stmtDropTable    = "DROP TABLE"
@@ -352,6 +354,10 @@ func buildConditions(conditions []storage.Condition) (string, []any, error) {
 			inVals := fmt.Convert(placeholders).Join(", ").String()
 			clause = fmt.Sprintf("%s IN (%s)", c.Field(), inVals)
 			args = append(args, slice...)
+		case operatorILike:
+			// Non-ASCII letters are NOT case-folded by SQLite LIKE.
+			clause = fmt.Sprintf("%s LIKE ?", c.Field()) // SQLite LIKE ignores ASCII case
+			args = append(args, c.Value())
 		default:
 			clause = fmt.Sprintf("%s %s ?", c.Field(), op)
 			args = append(args, c.Value())
